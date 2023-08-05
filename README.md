@@ -19,28 +19,4 @@ pnpm
 - lint-saged
 
 ```
-folder tree
-├─ public
-│  ├─ favicon.ico
-│  └─ vercel.svg
-├─ src
-│  ├─ interfaces
-│  │  └─ users.ts
-│  ├─ pages
-│  │  ├─ _app.tsx
-│  │  ├─ _document.tsx
-│  │  ├─ index.tsx
-│  │  ├─ isr-example.tsx
-│  │  └─ ssr-example.tsx
-│  ├─ styles
-│  │  └─ GlobalStyles.ts
-│  ├─ utils
-│  │  └─ axios.ts
-│  └─ views
-│     └─ components
-│        ├─ Button.tsx
-│        ├─ NextLink.tsx
-│        ├─ SafeLink.tsx
-│        └─ index.ts
-└─ next.config.js
-```
+
