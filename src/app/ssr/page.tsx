@@ -1,12 +1,15 @@
-import Link from "next/link";
+import Link from 'next/link';
 
-import { Posts } from "@/types/posts";
-import { fetcher } from "@/utils/fetcher";
+import { Posts } from '@/types/posts';
+import { fetcher } from '@/utils/fetcher';
 
 const Page = async () => {
-  const data = await fetcher<Posts[]>(`https://jsonplaceholder.typicode.com/posts`, {
-    cache: "no-cache",
-  });
+  const data = await fetcher<Posts[]>(
+    `https://jsonplaceholder.typicode.com/posts`,
+    {
+      cache: 'no-cache',
+    },
+  );
 
   return (
     <main>

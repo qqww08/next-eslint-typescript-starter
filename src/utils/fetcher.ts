@@ -1,12 +1,12 @@
-import qs from "qs";
+import qs from 'qs';
 
-export type FetcherType = Omit<RequestInit, "body"> & {
+export type FetcherType = Omit<RequestInit, 'body'> & {
   params?: Record<string, string>;
   data?: Record<string, string>;
 };
 export const fetcher = async <TResponse>(input: string, init?: FetcherType) => {
   try {
-    let queryString = "";
+    let queryString = '';
     let body = null;
 
     if (init?.params) {
