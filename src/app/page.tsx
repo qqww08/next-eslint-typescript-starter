@@ -7,6 +7,7 @@ const Home: NextPage = () => {
       <nav className="flex gap-30">
         <Link href="/ssr">SSR PAGE</Link>
         <Link href="/ssg">SSG PAGE</Link>
+        <button>asd</button>
         <a href="mychat://view?pathname=ssg">setting</a>
       </nav>
     </main>
