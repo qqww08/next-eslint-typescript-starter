@@ -1,4 +1,5 @@
 import { NextPage } from 'next';
+import Image from 'next/image';
 import Link from 'next/link';
 
 const Home: NextPage = () => {
@@ -12,6 +13,7 @@ const Home: NextPage = () => {
           SSG PAGE
         </Link>
       </nav>
+      <Image src="/big-size-img.jpg" alt="big" width={500} height={500} />
     </main>
   );
 };
