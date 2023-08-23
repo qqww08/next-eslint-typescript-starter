@@ -17,6 +17,6 @@ pnpm
 - eslint
 - husky
 - lint-saged
-
+- @tanstack/react-query
 ```
 

@@ -1,31 +1,21 @@
-import Link from 'next/link';
+import { dehydrate } from '@tanstack/query-core';
 
-import { Posts } from '@/types/posts';
-import { fetcher } from '@/utils/fetcher';
+import { getPosts } from '@/api/getPosts';
+import getQueryClient from '@/utils/getQueryClient';
+import Hydrate from '@/utils/hydrate.client';
+import SsrView from '@/views/SsrPage';
 
 const Page = async () => {
-  const data = await fetcher<Posts[]>(
-    `https://jsonplaceholder.typicode.com/posts`,
-    {
-      cache: 'no-cache',
-    },
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery(['ssr-posts'], () =>
+    getPosts({ cache: 'no-cache' }),
   );
+  const dehydratedState = dehydrate(queryClient);
 
   return (
-    <main>
-      <ul className="flex flex-col gap-30">
-        {data?.map((item) => {
-          return (
-            <li key={item.id}>
-              <Link href={`/ssr/${item.id}`}>
-                <h1>{item.title}</h1>
-                <p>{item.body}</p>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </main>
+    <Hydrate state={dehydratedState}>
+      <SsrView />
+    </Hydrate>
   );
 };
 

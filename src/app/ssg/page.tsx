@@ -1,27 +1,18 @@
-import Link from 'next/link';
+import { dehydrate } from '@tanstack/query-core';
 
-import { Posts } from '@/types/posts';
-import { fetcher } from '@/utils/fetcher';
+import { getPosts } from '@/api/getPosts';
+import getQueryClient from '@/utils/getQueryClient';
+import Hydrate from '@/utils/hydrate.client';
+import SsgView from '@/views/SsgPage';
 
 export default async function Page() {
-  const data = await fetcher<Posts[]>(
-    `https://jsonplaceholder.typicode.com/posts`,
-  );
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery(['ssg-posts'], () => getPosts());
+  const dehydratedState = dehydrate(queryClient);
 
   return (
-    <main>
-      <ul className="flex flex-col gap-30">
-        {data?.map((item) => {
-          return (
-            <li key={item.id}>
-              <Link href={`/ssg/${item.id}`}>
-                <h1>{item.title}</h1>
-                <p>{item.body}</p>
-              </Link>
-            </li>
-          );
-        })}
-      </ul>
-    </main>
+    <Hydrate state={dehydratedState}>
+      <SsgView />
+    </Hydrate>
   );
 }

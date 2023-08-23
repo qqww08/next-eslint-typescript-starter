@@ -1,37 +1,32 @@
+import { dehydrate } from '@tanstack/query-core';
 import { Metadata } from 'next';
 
-import { Posts } from '@/types/posts';
-import { fetcher } from '@/utils/fetcher';
+import { getPostDetail } from '@/api/getPosts';
+import getQueryClient from '@/utils/getQueryClient';
+import Hydrate from '@/utils/hydrate.client';
+import SsrDetailView from '@/views/SsrDetailPage';
 
 interface Props {
   params: { id: string };
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const data = await fetcher<Posts>(
-    `https://jsonplaceholder.typicode.com/posts/${params.id}`,
-  );
+  const data = await getPostDetail(params.id);
   return {
     title: data?.title,
     description: data?.body,
   };
 }
 export default async function Page({ params }: Props) {
-  const data = await fetcher<Posts>(
-    `https://jsonplaceholder.typicode.com/posts/${params.id}`,
-    {
-      cache: 'no-cache',
-    },
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery(['ssr-posts-detail', params.id], () =>
+    getPostDetail(params.id, { cache: 'no-cache' }),
   );
+  const dehydratedState = dehydrate(queryClient);
 
   return (
-    <div className="flex flex-col">
-      <div className="">
-        <h1 className="truncate text-2xl font-medium capitalize text-gray-200">
-          {data?.title}
-        </h1>
-        <p className="line-clamp-3 font-medium text-gray-500">{data?.body}</p>
-      </div>
-    </div>
+    <Hydrate state={dehydratedState}>
+      <SsrDetailView />
+    </Hydrate>
   );
 }

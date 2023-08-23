@@ -4,7 +4,7 @@ export type FetcherType = Omit<RequestInit, 'body'> & {
   params?: Record<string, string>;
   data?: Record<string, string>;
 };
-export const fetcher = async <TResponse>(input: string, init?: FetcherType) => {
+export const fetcher = async (input: string, init?: FetcherType) => {
   try {
     let queryString = '';
     let body = null;
@@ -16,7 +16,7 @@ export const fetcher = async <TResponse>(input: string, init?: FetcherType) => {
       body = JSON.stringify(init.data);
     }
     return await fetch(`${input}${queryString}`, { ...init, body }).then(
-      (res) => res.json() as TResponse,
+      (res) => res.json(),
     );
   } catch (error) {
     console.error(error);

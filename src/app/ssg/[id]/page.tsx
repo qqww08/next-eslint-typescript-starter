@@ -1,39 +1,35 @@
+import { dehydrate } from '@tanstack/query-core';
 import { Metadata } from 'next';
 
+import { getPostDetail, getPosts } from '@/api/getPosts';
 import { Posts } from '@/types/posts';
-import { fetcher } from '@/utils/fetcher';
+import getQueryClient from '@/utils/getQueryClient';
+import Hydrate from '@/utils/hydrate.client';
+import SsgDetailView from '@/views/SsgDetailPage/SsgDetailView';
 interface Props {
   params: { id: string };
 }
 export async function generateStaticParams(): Promise<{ id: string }[]> {
-  const data = await fetcher<Posts[]>(
-    `https://jsonplaceholder.typicode.com/posts`,
-  );
-  return data!.map((res) => ({ id: String(res.id) }));
+  const data = (await getPosts()) as Posts[];
+  return data.map((res) => ({ id: String(res.id) }));
 }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  console.log(params);
-  const data = await fetcher<Posts>(
-    `https://jsonplaceholder.typicode.com/posts/${params.id}`,
-  );
+  const data = await getPostDetail(params.id);
   return {
     title: data?.title,
     description: data?.body,
   };
 }
 export default async function Page({ params }: Props) {
-  const data = await fetcher<Posts>(
-    `https://jsonplaceholder.typicode.com/posts/${params.id}`,
+  const queryClient = getQueryClient();
+  await queryClient.prefetchQuery(['ssg-posts-detail', params.id], () =>
+    getPostDetail(params.id),
   );
+  const dehydratedState = dehydrate(queryClient);
 
   return (
-    <div className="flex flex-col">
-      <div className="">
-        <h1 className="truncate text-2xl font-medium capitalize text-gray-200">
-          {data?.title}
-        </h1>
-        <p className="line-clamp-3 font-medium text-gray-500">{data?.body}</p>
-      </div>
-    </div>
+    <Hydrate state={dehydratedState}>
+      <SsgDetailView />
+    </Hydrate>
   );
 }
