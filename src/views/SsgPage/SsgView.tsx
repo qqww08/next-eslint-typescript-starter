@@ -15,7 +15,7 @@ const SsgView = () => {
       <ul className="flex flex-col gap-30">
         {data?.map((item) => {
           return (
-            <li key={item.id}>
+            <li key={item.id} className="ripple px-20">
               <Link href={`/ssg/${item.id}`}>
                 <h1>{item.title}</h1>
                 <p>{item.body}</p>
