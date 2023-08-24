@@ -1,7 +1,7 @@
 import { dehydrate } from '@tanstack/query-core';
 import { Metadata } from 'next';
 
-import { getPostDetail } from '@/api/getPosts';
+import { getPostDetail } from '@/utils/getPosts';
 import getQueryClient from '@/utils/getQueryClient';
 import Hydrate from '@/utils/hydrate.client';
 import SsrDetailView from '@/views/SsrDetailPage';

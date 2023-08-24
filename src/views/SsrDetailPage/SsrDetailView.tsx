@@ -2,8 +2,8 @@
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'next/navigation';
 
-import { getPostDetail } from '@/api/getPosts';
 import { Posts } from '@/types/posts';
+import { getPostDetail } from '@/utils/getPosts';
 
 const SsrDetailView = () => {
   const params = useParams();

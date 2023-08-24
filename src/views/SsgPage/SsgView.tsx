@@ -2,8 +2,8 @@
 import { useQuery } from '@tanstack/react-query';
 import Link from 'next/link';
 
-import { getPosts } from '@/api/getPosts';
 import { Posts } from '@/types/posts';
+import { getPosts } from '@/utils/getPosts';
 
 const SsgView = () => {
   const { data } = useQuery<Posts[]>(['ssg-posts'], () => getPosts());

@@ -1,8 +1,16 @@
+'use client';
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect } from 'react';
+
+import { fetcher } from '@/utils/fetcher';
 
 const Home: NextPage = () => {
+  useEffect(() => {
+    fetcher('/api/posts');
+  }, []);
+
   return (
     <main className="flex flex-auto flex-col p-50">
       <nav className="flex items-center gap-30">
