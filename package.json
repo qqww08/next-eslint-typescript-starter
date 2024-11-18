@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -16,8 +16,9 @@
     "react-dom": "19.0.0-rc-66855b96-20241106"
   },
   "devDependencies": {
-    "@eslint/js": "^9.15.0",
     "@eslint/compat": "^1.2.3",
+    "@eslint/js": "^9.15.0",
+    "@tanstack/react-query-devtools": "^5.60.5",
     "@types/node": "^20",
     "@types/qs": "^6.9.7",
     "@types/react": "^18",
