@@ -8,16 +8,23 @@ export const fetcher = async (input: string, init?: FetcherType) => {
   try {
     let queryString = '';
     let body = null;
-
+    const headers = {
+      'Content-type': 'application/json',
+      ...init?.headers,
+    };
     if (init?.params) {
       queryString = `?${qs.stringify(init.params)}`;
     }
+
     if (init?.data) {
       body = JSON.stringify(init.data);
     }
-    return await fetch(`${input}${queryString}`, { ...init, body }).then(
-      (res) => res.json(),
-    );
+
+    return await fetch(`${input}${queryString}`, {
+      ...init,
+      headers,
+      body,
+    }).then((res) => res.json());
   } catch (error) {
     console.error(error);
   }
