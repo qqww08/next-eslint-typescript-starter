@@ -7,6 +7,7 @@ import typescriptEslint from '@typescript-eslint/eslint-plugin';
 import tsParser from '@typescript-eslint/parser';
 import _import from 'eslint-plugin-import';
 import prettier from 'eslint-plugin-prettier';
+import react from 'eslint-plugin-react';
 import unusedImports from 'eslint-plugin-unused-imports';
 import globals from 'globals';
 
@@ -32,6 +33,7 @@ export default [
   ),
   {
     plugins: {
+      react,
       '@typescript-eslint': typescriptEslint,
       prettier,
       'unused-imports': unusedImports,
@@ -72,7 +74,16 @@ export default [
       '@typescript-eslint/no-unused-vars': ['warn'],
       'no-unused-vars': 'off',
       'unused-imports/no-unused-imports': 'error',
-
+      'react/jsx-sort-props': [
+        'error',
+        {
+          ignoreCase: true,
+          callbacksLast: true,
+          shorthandFirst: true,
+          noSortAlphabetically: false,
+          reservedFirst: true,
+        },
+      ],
       'unused-imports/no-unused-vars': [
         'warn',
         {
