@@ -18,5 +18,6 @@ pnpm
 - husky
 - lint-saged
 - @tanstack/react-query
+- shadcn
 ```
 
