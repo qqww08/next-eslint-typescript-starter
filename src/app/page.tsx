@@ -2,18 +2,11 @@
 import { NextPage } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { useEffect } from 'react';
-
-import { fetcher } from '@/utils/fetcher';
 
 const Home: NextPage = () => {
-  useEffect(() => {
-    fetcher('/api/posts');
-  }, []);
-
   return (
-    <main className="flex flex-auto flex-col p-50">
-      <nav className="flex items-center gap-30">
+    <main className="p-50 flex flex-auto flex-col">
+      <nav className="gap-30 flex items-center">
         <Link href="/ssr" className="ripple px-20 py-5">
           SSR PAGE
         </Link>

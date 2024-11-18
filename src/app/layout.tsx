@@ -1,5 +1,4 @@
-import '@/styles/globals.css';
-import { ReactQueryStreamedHydration } from '@tanstack/react-query-next-experimental';
+import './globals.css';
 
 import QueryClientRegistry from '@/app/registry';
 
@@ -16,9 +15,7 @@ export default function RootLayout({
               */}
       <head />
       <body>
-        <QueryClientRegistry>
-          <ReactQueryStreamedHydration>{children}</ReactQueryStreamedHydration>
-        </QueryClientRegistry>
+        <QueryClientRegistry>{children}</QueryClientRegistry>
       </body>
     </html>
   );
