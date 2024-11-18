@@ -7,12 +7,12 @@ pnpm
 
 ## NextJS Boilerplate
 
-- nextJS 13.4.10
-- react 18.2.0
-- react-dom 18.2.0
-- typescript 5.1.6
-- tailwindcss 3.3.3
-- qs 6.11.2
+- nextJS 15
+- react 19
+- react-dom 19
+- typescript 5
+- tailwindcss 3
+- qs 6
 - prettierrc
 - eslint
 - husky
